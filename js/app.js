@@ -47,20 +47,20 @@ const app = {
     return list[i]
   },
   activeColorList: ['greenActive', 'redActive', 'blueActive', 'yellowActive'],
-  computerList: [0,1,2,3],
+  computerList: [0,1,2,3,0,3,2,1,0,3,0,2,0,1],
   simulateClick:() => {
     if(app.counter === app.computerList.length) {
       return 'complete'
     }
     app.highlightBox(app.colorList(app.computerList[app.counter]), app.activeColorList[app.computerList[app.counter]])
-    app.test = setTimeout(app.highlightBox, 3000, app.colorList(app.computerList[app.counter]), app.activeColorList[app.computerList[app.counter]])
+    app.test = setTimeout(app.highlightBox, 500, app.colorList(app.computerList[app.counter]), app.activeColorList[app.computerList[app.counter]])
     app.test = setTimeout(() =>{
       app.simulateClick()
       console.log(app.counter)
       if(app.counter < app.computerList.length){
       app.counter++
     }
-    }, 3000)
+    }, 500)
   },
 
   test: undefined,
