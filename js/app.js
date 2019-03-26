@@ -3,10 +3,6 @@ const app = {
   redBox: document.querySelector('.red'),
   blueBox: document.querySelector('.blue'),
   yellowBox: document.querySelector('.yellow'),
-  colorList(i) {
-    let list = [app.greenBox, app.redBox, app.blueBox, app.yellowBox]
-    return list[i]
-  },
   //Log player choices here
   playerList: [],
   //Click event listeners for each color
@@ -42,29 +38,38 @@ const app = {
   },
   //computer choices stored here
   //used to compare player choices
-  computerList: [],
+ 
   //TODO - check player choice against computer choice
 
   //TODO - play back the computer choices
-  computerChoicePlayBack: () => {
-    //pick random number
-    //highlight the box color
+  colorList(i) {
+    let list = [app.greenBox, app.redBox, app.blueBox, app.yellowBox]
+    return list[i]
+  },
+  activeColorList: ['greenActive', 'redActive', 'blueActive', 'yellowActive'],
+  computerList: [0,1,2,3],
+  simulateClick:() => {
+    if(app.counter === app.computerList.length) {
+      return 'complete'
+    }
+    app.highlightBox(app.colorList(app.computerList[app.counter]), app.activeColorList[app.computerList[app.counter]])
+    app.test = setTimeout(app.highlightBox, 3000, app.colorList(app.computerList[app.counter]), app.activeColorList[app.computerList[app.counter]])
+    app.test = setTimeout(() =>{
+      app.simulateClick()
+      console.log(app.counter)
+      if(app.counter < app.computerList.length){
+      app.counter++
+    }
+    }, 3000)
+  },
 
-  },
-  highlightBox: (colorBox, highlightBox) => {
-    colorBox.classList.toggle(highlightBox)
-  },
-  playChosenBox: (myNumber) => {
-    // console.log(myNumber, 'i am here')
-    app.toggleBoxClass(myNumber)
-    setTimeout(function () {
-      app.toggleBoxClass(myNumber)
-    }, 1000)
-  },
+  test: undefined,
 
+  highlightBox: (box, color) => {
+    box.classList.toggle(color)
+  },
   toggleBoxClass: (selectedNumber) => {
-    console.log(selectedNumber, 'i am here')
-    if (selectedNumber === 0) {
+     if (selectedNumber === 0) {
       app.greenBox.classList.toggle('greenActive')
     } else if (selectedNumber === 1) {
       app.redBox.classList.toggle('redActive')
@@ -74,15 +79,27 @@ const app = {
       app.yellowBox.classList.toggle('yellowActive')
     }
   },
-  test: () => {
-    //cycle through for loop once per second
-    let array = [1, 2, 3]
-    for (let i = 0; i < array.length; i++) {
-      setTimeout(function () {
-        console.log(array[i])
-      }, 1000)
-    }
+
+//////
+counter: 0,
+  playBackTimer: undefined,
+  computerListPlayBack:() => {
+    app.playBackTimer = setInterval(() => {
+      console.log(app.counter)
+      app.counter++
+      if(app.counter < 5) {
+        console.log('at 5')
+      }
+    }, 1000)
   },
+  stopComputerPlayBack:() => {
+    clearInterval(app.playBackTimer)
+    app.playBackTimer = undefined
+    app.counter = 0
+  },
+
+
+/////
   //disable player clicks while computer choices are playing back
 
   //add a new choice if player gets completes computer sequence
