@@ -13,63 +13,82 @@ const app = {
     app.blueBox.addEventListener('click', app.addNumberToPlayerList)
     app.yellowBox.addEventListener('click', app.addNumberToPlayerList)
   },
-  //rename function to represent what it does
   //adds number to list based on class name of the clicked box
   addNumberToPlayerList: (event) => {
     if (event.target.classList.contains('green')) {
       app.playerList.push(0)
+      console.log(app.playerList)
+      app.toggleBoxClass(0)
+      setTimeout(app.toggleBoxClass, 500, 0)
     } else if (event.target.classList.contains('red')) {
       app.playerList.push(1)
+      console.log(app.playerList)
     } else if (event.target.classList.contains('blue')) {
       app.playerList.push(2)
+      console.log(app.playerList)
     } else if (event.target.classList.contains('yellow')) {
       app.playerList.push(3)
+      console.log(app.playerList)
     }
   },
+
+  //TODO - check player choice against computer choice
+
+  //main computer logic
+  //pick random number - corresponds with box color
+  //add random number to sequence list
+  //playback sequence to player
+  main: () => {
+    app.counter = 0
+    app.addNumberToComputerList()
+    app.computerPlayback()
+  },
+
+  //computer chosed list
+  computerList: [],
+
+  //used to rerun setTimeout on computerPlayback untill the sequence is complete 
+  cycleNext: undefined,
+
   //used for computer to choose a random color
   randomNumber: () => {
     let selectedNumber
     selectedNumber = Math.floor(Math.random() * (3 - 0 + 1) + 0)
     return selectedNumber
   },
+  //adds the random number to the computerList for playback
   addNumberToComputerList: () => {
     app.computerList.push(app.randomNumber())
     console.log(app.computerList)
   },
-  //computer choices stored here
-  //used to compare player choices
- 
-  //TODO - check player choice against computer choice
+  //used to iterate throught computerList for the player
+  counter: 0,
+  //used to rerun setTimeout on computerPlayback untill the sequence is complete 
+  cycleNext: undefined,
 
-  //TODO - play back the computer choices
-  colorList(i) {
-    let list = [app.greenBox, app.redBox, app.blueBox, app.yellowBox]
-    return list[i]
-  },
-  activeColorList: ['greenActive', 'redActive', 'blueActive', 'yellowActive'],
-  computerList: [0,1,2,3,0,3,2,1,0,3,0,2,0,1],
-  simulateClick:() => {
-    if(app.counter === app.computerList.length) {
-      return 'complete'
+  //cycles through the computerList
+  //used to playback the sequence to the player
+  computerPlayback: () => {
+    //probably do not need this, but will keep for now
+    if (app.counter === app.computerList.length) {
+      return 'complete in computerplayback()'
     }
-    app.highlightBox(app.colorList(app.computerList[app.counter]), app.activeColorList[app.computerList[app.counter]])
-    app.test = setTimeout(app.highlightBox, 500, app.colorList(app.computerList[app.counter]), app.activeColorList[app.computerList[app.counter]])
-    app.test = setTimeout(() =>{
-      app.simulateClick()
-      console.log(app.counter)
-      if(app.counter < app.computerList.length){
-      app.counter++
-    }
-    }, 500)
-  },
 
-  test: undefined,
-
-  highlightBox: (box, color) => {
-    box.classList.toggle(color)
+    //this highlights the box by toggling the the active color
+    //then turns it off using the setTimout
+    //counter iterates through the computerList
+    app.toggleBoxClass(app.computerList[app.counter])
+    setTimeout(app.toggleBoxClass, 750, app.computerList[app.counter])
+    //used for computerList iteration
+    app.counter++
+    //runs the next index of computerList
+    //this is run with twice the time so the player can see the box color go back to its original state before going...
+    //to the next index in the computerList
+    app.cycleNext = setTimeout(app.computerPlayback, 750 * 2)
   },
+  //highlights the chosen box
   toggleBoxClass: (selectedNumber) => {
-     if (selectedNumber === 0) {
+    if (selectedNumber === 0) {
       app.greenBox.classList.toggle('greenActive')
     } else if (selectedNumber === 1) {
       app.redBox.classList.toggle('redActive')
@@ -79,27 +98,6 @@ const app = {
       app.yellowBox.classList.toggle('yellowActive')
     }
   },
-
-//////
-counter: 0,
-  playBackTimer: undefined,
-  computerListPlayBack:() => {
-    app.playBackTimer = setInterval(() => {
-      console.log(app.counter)
-      app.counter++
-      if(app.counter < 5) {
-        console.log('at 5')
-      }
-    }, 1000)
-  },
-  stopComputerPlayBack:() => {
-    clearInterval(app.playBackTimer)
-    app.playBackTimer = undefined
-    app.counter = 0
-  },
-
-
-/////
   //disable player clicks while computer choices are playing back
 
   //add a new choice if player gets completes computer sequence
