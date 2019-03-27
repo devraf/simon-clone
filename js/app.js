@@ -3,6 +3,11 @@ const app = {
   redBox: document.querySelector(".red"),
   blueBox: document.querySelector(".blue"),
   yellowBox: document.querySelector(".yellow"),
+
+  //Hud Elements
+  //Controls
+  startButton: document.querySelector(".start-button"),
+
   //Log player choices here
   playerList: [],
   //Click event listeners for each color
@@ -98,6 +103,23 @@ const app = {
       app.yellowBox.classList.toggle("yellowActive");
     }
   },
+
+  //--- GAME LOGIC ---
+
+  gameStart() {
+    //Press Start ot begin Game
+    main();
+  },
+
+  //Computer picks random box
+  //Chosen box will be played back to play
+
+  //player will copy the compnuter's sequence
+  //check if player's choice matches the computers sequence
+
+  //repeat until player clicks the wrong box in the sequence
+
+  //restart game
   //disable player clicks while computer choices are playing back
 
   //add a new choice if player gets completes computer sequence
@@ -122,7 +144,7 @@ const app = {
 
   //start the game
   init: () => {
-    app.addToPlayerList();
+    app.gameStart();
   }
 };
 
