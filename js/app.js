@@ -7,7 +7,17 @@ const app = {
   //Hud Elements
   //Controls
   startButton: document.querySelector(".start-button"),
-
+  startGame: () => {
+    (app.count = 0), (app.playerList = []);
+    app.computerList = [];
+    console.log(app.count, app.computerList, app.playerList);
+    app.disablePlayerClick();
+    console.log("click disabled");
+    setTimeout(app.main, 1500);
+  },
+  startButtonClicked: () => {
+    app.startButton.addEventListener("click", app.startGame);
+  },
   //Log player choices here
   playerList: [],
   //Click event listeners for each color
@@ -17,6 +27,12 @@ const app = {
     app.redBox.addEventListener("click", app.addNumberToPlayerList);
     app.blueBox.addEventListener("click", app.addNumberToPlayerList);
     app.yellowBox.addEventListener("click", app.addNumberToPlayerList);
+  },
+  disablePlayerClick: () => {
+    app.greenBox.removeEventListener("click", app.addNumberToPlayerList);
+    app.redBox.removeEventListener("click", app.addNumberToPlayerList);
+    app.blueBox.removeEventListener("click", app.addNumberToPlayerList);
+    app.yellowBox.removeEventListener("click", app.addNumberToPlayerList);
   },
   //adds number to list based on class name of the clicked box
   //simulates player click
@@ -47,6 +63,7 @@ const app = {
     app.counter = 0;
     app.addNumberToComputerList();
     app.computerPlayback();
+    console.log("main function complete");
   },
 
   //computer choice list
@@ -64,7 +81,7 @@ const app = {
   //adds the random number to the computerList for playback
   addNumberToComputerList: () => {
     app.computerList.push(app.randomNumber());
-    console.log(app.computerList);
+    console.log('computerlist', app.computerList);
   },
   //used to iterate throught computerList for the player
   counter: 0,
@@ -108,7 +125,9 @@ const app = {
 
   gameStart() {
     //Press Start ot begin Game
-    main();
+    // app.main();
+    app.addToPlayerList();
+    app.startButtonClicked();
   },
 
   //Computer picks random box
