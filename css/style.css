@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  background-color: hsla(120, 0%, 10%, 1);
 }
 
 section {
@@ -23,11 +24,13 @@ section div {
   grid-row: 1 / 2;
   background-color: hsla(120, 90%, 40%, 1);
   box-shadow: 0 0 5px 3px hsla(120, 90%, 40%, 1);
+  transition: 0.3s;
 }
 
 .greenActive {
-  background-color: hsla(120, 90%, 65%, 1);
-  transition: .3s;
+  background-color: hsla(120, 90%, 60%, 1);
+  box-shadow: 0 0 15px 7px hsla(120, 90%, 55%, 1);
+  transition: 0.3s;
 }
 
 .red {
@@ -35,11 +38,13 @@ section div {
   grid-row: 2 / 3;
   background-color: hsla(360, 100%, 40%, 1);
   box-shadow: 0 0 5px 3px hsla(360, 100%, 40%, 1);
+  transition: 0.3s;
 }
 
 .redActive {
   background-color: hsla(360, 90%, 65%, 1);
-  transition: .3s;
+  box-shadow: 0 0 15px 7px hsla(360, 90%, 55%, 1);
+  transition: 0.3s;
 }
 
 .blue {
@@ -47,21 +52,25 @@ section div {
   grid-row: 2 / 3;
   background-color: hsla(240, 100%, 40%, 1);
   box-shadow: 0 0 5px 3px hsla(240, 100%, 40%, 1);
+  transition: 0.3s;
 }
 
 .blueActive {
   background-color: hsla(240, 90%, 65%, 1);
-  transition: .3s;
+  box-shadow: 0 0 15px 7px hsla(240, 90%, 55%, 1);
+  transition: 0.3s;
 }
 
 .yellow {
   grid-column: 2 / 3;
   grid-row: 3 / 4;
-  background-color: hsla(60, 90%, 45%, 1);
+  background-color: hsla(60, 90%, 40%, 1);
   box-shadow: 0 0 5px 3px hsla(60, 90%, 45%, 1);
+  transition: 0.3s;
 }
 
 .yellowActive {
   background-color: hsla(60, 90%, 65%, 1);
-  transition: .3s;
+  box-shadow: 0 0 15px 7px hsla(60, 90%, 55%, 1);
+  transition: 0.3s;
 }

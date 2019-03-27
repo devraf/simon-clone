@@ -1,69 +1,69 @@
 const app = {
-  greenBox: document.querySelector('.green'),
-  redBox: document.querySelector('.red'),
-  blueBox: document.querySelector('.blue'),
-  yellowBox: document.querySelector('.yellow'),
+  greenBox: document.querySelector(".green"),
+  redBox: document.querySelector(".red"),
+  blueBox: document.querySelector(".blue"),
+  yellowBox: document.querySelector(".yellow"),
   //Log player choices here
   playerList: [],
   //Click event listeners for each color
   //adds corresponding number to playerList based on boxed clicked
   addToPlayerList: () => {
-    app.greenBox.addEventListener('click', app.addNumberToPlayerList)
-    app.redBox.addEventListener('click', app.addNumberToPlayerList)
-    app.blueBox.addEventListener('click', app.addNumberToPlayerList)
-    app.yellowBox.addEventListener('click', app.addNumberToPlayerList)
+    app.greenBox.addEventListener("click", app.addNumberToPlayerList);
+    app.redBox.addEventListener("click", app.addNumberToPlayerList);
+    app.blueBox.addEventListener("click", app.addNumberToPlayerList);
+    app.yellowBox.addEventListener("click", app.addNumberToPlayerList);
   },
   //adds number to list based on class name of the clicked box
-  addNumberToPlayerList: (event) => {
-    if (event.target.classList.contains('green')) {
-      app.playerList.push(0)
-      console.log(app.playerList)
-      app.toggleBoxClass(0)
-      setTimeout(app.toggleBoxClass, 500, 0)
-    } else if (event.target.classList.contains('red')) {
-      app.playerList.push(1)
-      console.log(app.playerList)
-    } else if (event.target.classList.contains('blue')) {
-      app.playerList.push(2)
-      console.log(app.playerList)
-    } else if (event.target.classList.contains('yellow')) {
-      app.playerList.push(3)
-      console.log(app.playerList)
+  //simulates player click
+  addNumberToPlayerList: event => {
+    if (event.target.classList.contains("green")) {
+      app.playerList.push(0);
+      app.toggleBoxClass(0);
+      setTimeout(app.toggleBoxClass, 500, 0);
+    } else if (event.target.classList.contains("red")) {
+      app.playerList.push(1);
+      app.toggleBoxClass(1);
+      setTimeout(app.toggleBoxClass, 500, 1);
+    } else if (event.target.classList.contains("blue")) {
+      app.playerList.push(2);
+      app.toggleBoxClass(2);
+      setTimeout(app.toggleBoxClass, 500, 2);
+    } else if (event.target.classList.contains("yellow")) {
+      app.playerList.push(3);
+      app.toggleBoxClass(3);
+      setTimeout(app.toggleBoxClass, 500, 3);
     }
   },
-
-  //TODO - check player choice against computer choice
-
   //main computer logic
   //pick random number - corresponds with box color
   //add random number to sequence list
   //playback sequence to player
   main: () => {
-    app.counter = 0
-    app.addNumberToComputerList()
-    app.computerPlayback()
+    app.counter = 0;
+    app.addNumberToComputerList();
+    app.computerPlayback();
   },
 
-  //computer chosed list
+  //computer choice list
   computerList: [],
 
-  //used to rerun setTimeout on computerPlayback untill the sequence is complete 
+  //used to rerun setTimeout on computerPlayback untill the sequence is complete
   cycleNext: undefined,
 
   //used for computer to choose a random color
   randomNumber: () => {
-    let selectedNumber
-    selectedNumber = Math.floor(Math.random() * (3 - 0 + 1) + 0)
-    return selectedNumber
+    let selectedNumber;
+    selectedNumber = Math.floor(Math.random() * (3 - 0 + 1) + 0);
+    return selectedNumber;
   },
   //adds the random number to the computerList for playback
   addNumberToComputerList: () => {
-    app.computerList.push(app.randomNumber())
-    console.log(app.computerList)
+    app.computerList.push(app.randomNumber());
+    console.log(app.computerList);
   },
   //used to iterate throught computerList for the player
   counter: 0,
-  //used to rerun setTimeout on computerPlayback untill the sequence is complete 
+  //used to rerun setTimeout on computerPlayback untill the sequence is complete
   cycleNext: undefined,
 
   //cycles through the computerList
@@ -71,31 +71,31 @@ const app = {
   computerPlayback: () => {
     //probably do not need this, but will keep for now
     if (app.counter === app.computerList.length) {
-      return 'complete in computerplayback()'
+      return "complete in computerplayback()";
     }
 
     //this highlights the box by toggling the the active color
     //then turns it off using the setTimout
     //counter iterates through the computerList
-    app.toggleBoxClass(app.computerList[app.counter])
-    setTimeout(app.toggleBoxClass, 750, app.computerList[app.counter])
+    app.toggleBoxClass(app.computerList[app.counter]);
+    setTimeout(app.toggleBoxClass, 750, app.computerList[app.counter]);
     //used for computerList iteration
-    app.counter++
+    app.counter++;
     //runs the next index of computerList
     //this is run with twice the time so the player can see the box color go back to its original state before going...
     //to the next index in the computerList
-    app.cycleNext = setTimeout(app.computerPlayback, 750 * 2)
+    app.cycleNext = setTimeout(app.computerPlayback, 750 * 2);
   },
   //highlights the chosen box
-  toggleBoxClass: (selectedNumber) => {
+  toggleBoxClass: selectedNumber => {
     if (selectedNumber === 0) {
-      app.greenBox.classList.toggle('greenActive')
+      app.greenBox.classList.toggle("greenActive");
     } else if (selectedNumber === 1) {
-      app.redBox.classList.toggle('redActive')
+      app.redBox.classList.toggle("redActive");
     } else if (selectedNumber === 2) {
-      app.blueBox.classList.toggle('blueActive')
+      app.blueBox.classList.toggle("blueActive");
     } else if (selectedNumber === 3) {
-      app.yellowBox.classList.toggle('yellowActive')
+      app.yellowBox.classList.toggle("yellowActive");
     }
   },
   //disable player clicks while computer choices are playing back
@@ -122,8 +122,8 @@ const app = {
 
   //start the game
   init: () => {
-    app.addToPlayerList()
+    app.addToPlayerList();
   }
-}
+};
 
-app.init()
+app.init();
