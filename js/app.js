@@ -8,15 +8,83 @@ const app = {
   //Controls
   startButton: document.querySelector(".start-button"),
   startGame: () => {
-    (app.count = 0), (app.playerList = []);
-    app.computerList = [];
-    console.log(app.count, app.computerList, app.playerList);
-    app.disablePlayerClick();
-    console.log("click disabled");
-    setTimeout(app.main, 1500);
+    //Clear player/computer lists
+    //Clear counter
+    app.count = 0
+    app.playerList = []
+    console.log(app.count, app.computerList, app.playerList)
+    //Prevent player from clicking while computer logic is run
+    app.disablePlayerClick()
+    console.log('click disabled')
+    //run computer list to play
+    //waits 1.5 seconds before starting playback
+    //to give player time to get ready to watch playback
+    setTimeout(app.main, 1500)
+
+    //give player a audio/visual que that it is player's turn
+    setTimeout(app.beginPlayerTurn, app.computerList.length * 800 * 2)
+  },
+  beginPlayerTurn: () => {
+    console.log('startgame function ended')
+    console.log('beginPlayerTurn function started')
+    setTimeout(app.addToPlayerList, 2500)
+    setTimeout(app.checkMatchOnEachClick, 3000)
+  },
+  checkMatchCounter: 0,
+  checkMatch: () => {
+    console.log(app.checkMatchCounter)
+    console.log(app.computerList)
+    console.log(app.playerList)
+    if (
+      app.computerList[app.checkMatchCounter] ===
+      app.playerList[app.checkMatchCounter]
+    ) {
+      app.checkMatchCounter++
+      console.log("match")
+    } else return app.gameOver()
+    if (app.checkMatchCounter === app.computerList.length) {
+      app.checkMatchCounter = 0
+      app.count = 0
+      app.playerList = []
+      console.log(app.count, app.computerList, app.playerList);
+      //Prevent player from clicking while computer logic is run
+      app.disablePlayerClick();
+      console.log('click disabled')
+      //run computer list to play
+      //waits 1.5 seconds before starting playback
+      //to give player time to get ready to watch playback
+      setTimeout(app.main, 1500);
+
+      // //give player a audio/visual que that it is player's turn
+      setTimeout(app.beginPlayerTurn, app.computerList.length * 800 * 2);
+    }
+  },
+  gameOver: () => {
+    console.log('game over')
+    //Notify player of mismatch
+
+    //display Game Over modal
+
+    //reset both list
+    app.playerList = []
+    app.computerList = []
+
+    //reset counters
+    app.counter = 0
+    app.checkMatchCounter = 0
+
+    //disable click events
+    app.disablePlayerClick()
   },
   startButtonClicked: () => {
-    app.startButton.addEventListener("click", app.startGame);
+    app.startButton.addEventListener("click", app.startGame)
+  },
+
+  checkMatchOnEachClick: () => {
+    app.greenBox.addEventListener('click', app.checkMatch)
+    app.redBox.addEventListener('click', app.checkMatch)
+    app.blueBox.addEventListener('click', app.checkMatch)
+    app.yellowBox.addEventListener('click', app.checkMatch)
   },
   //Log player choices here
   playerList: [],
@@ -27,31 +95,40 @@ const app = {
     app.redBox.addEventListener("click", app.addNumberToPlayerList);
     app.blueBox.addEventListener("click", app.addNumberToPlayerList);
     app.yellowBox.addEventListener("click", app.addNumberToPlayerList);
+    console.log("click event funtion started")
   },
   disablePlayerClick: () => {
-    app.greenBox.removeEventListener("click", app.addNumberToPlayerList);
-    app.redBox.removeEventListener("click", app.addNumberToPlayerList);
-    app.blueBox.removeEventListener("click", app.addNumberToPlayerList);
-    app.yellowBox.removeEventListener("click", app.addNumberToPlayerList);
+    app.greenBox.removeEventListener("click", app.addNumberToPlayerList)
+    app.redBox.removeEventListener("click", app.addNumberToPlayerList)
+    app.blueBox.removeEventListener("click", app.addNumberToPlayerList)
+    app.yellowBox.removeEventListener("click", app.addNumberToPlayerList)
+    app.greenBox.removeEventListener('click', app.checkMatch)
+    app.redBox.removeEventListener('click', app.checkMatch)
+    app.blueBox.removeEventListener('click', app.checkMatch)
+    app.yellowBox.removeEventListener('click', app.checkMatch)
   },
   //adds number to list based on class name of the clicked box
   //simulates player click
   addNumberToPlayerList: event => {
     if (event.target.classList.contains("green")) {
-      app.playerList.push(0);
-      app.toggleBoxClass(0);
+      app.playerList.push(0)
+      console.log('pushed 0 to playerList')
+      app.toggleBoxClass(0)
       setTimeout(app.toggleBoxClass, 500, 0);
     } else if (event.target.classList.contains("red")) {
-      app.playerList.push(1);
-      app.toggleBoxClass(1);
+      app.playerList.push(1)
+      console.log('pushed 1 to playerList')
+      app.toggleBoxClass(1)
       setTimeout(app.toggleBoxClass, 500, 1);
     } else if (event.target.classList.contains("blue")) {
-      app.playerList.push(2);
-      app.toggleBoxClass(2);
+      app.playerList.push(2)
+      console.log('pushed 2 to playerList')
+      app.toggleBoxClass(2)
       setTimeout(app.toggleBoxClass, 500, 2);
     } else if (event.target.classList.contains("yellow")) {
-      app.playerList.push(3);
-      app.toggleBoxClass(3);
+      app.playerList.push(3)
+      console.log('pushed 3 to playerList')
+      app.toggleBoxClass(3)
       setTimeout(app.toggleBoxClass, 500, 3);
     }
   },
@@ -81,7 +158,7 @@ const app = {
   //adds the random number to the computerList for playback
   addNumberToComputerList: () => {
     app.computerList.push(app.randomNumber());
-    console.log('computerlist', app.computerList);
+    console.log("computerlist", app.computerList);
   },
   //used to iterate throught computerList for the player
   counter: 0,
@@ -126,7 +203,6 @@ const app = {
   gameStart() {
     //Press Start ot begin Game
     // app.main();
-    app.addToPlayerList();
     app.startButtonClicked();
   },
 
