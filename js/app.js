@@ -4,6 +4,17 @@ const app = {
   blueBox: document.querySelector(".blue"),
   yellowBox: document.querySelector(".yellow"),
 
+  cNoteAudio: document.querySelector('.cNote'),
+  eNoteAudio: document.querySelector('.eNote'),
+  fNoteAudio: document.querySelector('.fNote'),
+  gNoteAudio: document.querySelector('.gNote'),
+  failNoteAudio: document.querySelector('.failNote'),
+
+  playAudio:(note) => {
+    note.currentTime = 0;
+    note.play()
+  },
+
   //Hud Elements
   //Controls
   startButton: document.querySelector(".start-button"),
@@ -114,21 +125,25 @@ const app = {
       app.playerList.push(0)
       console.log('pushed 0 to playerList')
       app.toggleBoxClass(0)
+      app.playAudio(cNoteAudio)
       setTimeout(app.toggleBoxClass, 500, 0);
     } else if (event.target.classList.contains("red")) {
       app.playerList.push(1)
       console.log('pushed 1 to playerList')
       app.toggleBoxClass(1)
+      app.playAudio(eNoteAudio)
       setTimeout(app.toggleBoxClass, 500, 1);
     } else if (event.target.classList.contains("blue")) {
       app.playerList.push(2)
       console.log('pushed 2 to playerList')
       app.toggleBoxClass(2)
+      app.playAudio(fNoteAudio)
       setTimeout(app.toggleBoxClass, 500, 2);
     } else if (event.target.classList.contains("yellow")) {
       app.playerList.push(3)
       console.log('pushed 3 to playerList')
       app.toggleBoxClass(3)
+      app.playAudio(gNoteAudio)
       setTimeout(app.toggleBoxClass, 500, 3);
     }
   },
@@ -176,7 +191,7 @@ const app = {
     //this highlights the box by toggling the the active color
     //then turns it off using the setTimout
     //counter iterates through the computerList
-    app.toggleBoxClass(app.computerList[app.counter]);
+    app.toggleBoxClass(app.computerList[app.counter])
     setTimeout(app.toggleBoxClass, 750, app.computerList[app.counter]);
     //used for computerList iteration
     app.counter++;
@@ -244,3 +259,24 @@ const app = {
 };
 
 app.init();
+
+const test = () => {
+  cNoteAudio = document.querySelector('.cNote')
+  console.log(cNoteAudio)
+  cNoteAudio.currentTime = 0;
+  cNoteAudio.play()
+  // app.greenBox.addEventListener('click', playAudio, cNoteAudio)
+  // eNoteRed = document.querySelector('.eNote')
+  // eNoteRed.addEventListener('click', playAudio, e)
+  // fNoteBlue = document.querySelector('.fNote')
+  // fNoteBlue.addEventListener('click', playAudio, f)
+  // eNoteRed = document.querySelector('.eNote')
+  // eNoteRed.addEventListener('click', playAudio, e)
+}
+
+const playAudio = (note) => {
+  //play note
+  note.currentTime = 0;
+  note.play()
+  //re/start at 0:00
+}
