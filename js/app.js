@@ -33,13 +33,13 @@ const app = {
     setTimeout(app.main, 1500)
 
     //give player a audio/visual que that it is player's turn
-    setTimeout(app.beginPlayerTurn, app.computerList.length * 800 * 2)
+    setTimeout(app.beginPlayerTurn, app.computerList.length * 650 * 2)
   },
   beginPlayerTurn: () => {
     console.log('startgame function ended')
     console.log('beginPlayerTurn function started')
-    setTimeout(app.addToPlayerList, 2500)
-    setTimeout(app.checkMatchOnEachClick, 3000)
+    setTimeout(app.addToPlayerList, 1500)
+    setTimeout(app.checkMatchOnEachClick, 2000)
   },
   checkMatchCounter: 0,
   checkMatch: () => {
@@ -67,10 +67,11 @@ const app = {
       setTimeout(app.main, 1500);
 
       // //give player a audio/visual que that it is player's turn
-      setTimeout(app.beginPlayerTurn, app.computerList.length * 800 * 2);
+      setTimeout(app.beginPlayerTurn, app.computerList.length * 650 * 2);
     }
   },
   gameOver: () => {
+    app.disablePlayerClick()
     console.log('game over')
     //Notify player of mismatch
 
@@ -85,8 +86,18 @@ const app = {
     app.checkMatchCounter = 0
 
     //disable click events
-    app.disablePlayerClick()
+    setTimeout(app.autoToggleAll, 1000)
+    setTimeout(app.playAudio, 1000, app.failNoteAudio)
+    setTimeout(app.autoToggleAll, 2000)
   },
+
+  autoToggleAll:() => {
+      app.greenBox.classList.toggle("greenActive");
+      app.redBox.classList.toggle("redActive");
+      app.blueBox.classList.toggle("blueActive");
+      app.yellowBox.classList.toggle("yellowActive");
+  },
+
   startButtonClicked: () => {
     app.startButton.addEventListener("click", app.startGame)
   },
@@ -125,25 +136,25 @@ const app = {
       app.playerList.push(0)
       console.log('pushed 0 to playerList')
       app.toggleBoxClass(0)
-      app.playAudio(cNoteAudio)
+      app.playAudio(app.cNoteAudio)
       setTimeout(app.toggleBoxClass, 500, 0);
     } else if (event.target.classList.contains("red")) {
       app.playerList.push(1)
       console.log('pushed 1 to playerList')
       app.toggleBoxClass(1)
-      app.playAudio(eNoteAudio)
+      app.playAudio(app.eNoteAudio)
       setTimeout(app.toggleBoxClass, 500, 1);
     } else if (event.target.classList.contains("blue")) {
       app.playerList.push(2)
       console.log('pushed 2 to playerList')
       app.toggleBoxClass(2)
-      app.playAudio(fNoteAudio)
+      app.playAudio(app.fNoteAudio)
       setTimeout(app.toggleBoxClass, 500, 2);
     } else if (event.target.classList.contains("yellow")) {
       app.playerList.push(3)
       console.log('pushed 3 to playerList')
       app.toggleBoxClass(3)
-      app.playAudio(gNoteAudio)
+      app.playAudio(app.gNoteAudio)
       setTimeout(app.toggleBoxClass, 500, 3);
     }
   },
@@ -192,13 +203,14 @@ const app = {
     //then turns it off using the setTimout
     //counter iterates through the computerList
     app.toggleBoxClass(app.computerList[app.counter])
-    setTimeout(app.toggleBoxClass, 750, app.computerList[app.counter]);
+    app.computerAudioPlayback(app.computerList[app.counter])
+    setTimeout(app.toggleBoxClass, 300, app.computerList[app.counter]);
     //used for computerList iteration
     app.counter++;
     //runs the next index of computerList
     //this is run with twice the time so the player can see the box color go back to its original state before going...
     //to the next index in the computerList
-    app.cycleNext = setTimeout(app.computerPlayback, 750 * 2);
+    app.cycleNext = setTimeout(app.computerPlayback, 300 * 2);
   },
   //highlights the chosen box
   toggleBoxClass: selectedNumber => {
@@ -213,6 +225,18 @@ const app = {
     }
   },
 
+  computerAudioPlayback: (selectedNumber) => {
+    if (selectedNumber === 0) {
+      app.playAudio(app.cNoteAudio)
+    } else if (selectedNumber === 1) {
+      app.playAudio(app.eNoteAudio)
+    } else if (selectedNumber === 2) {
+      app.playAudio(app.fNoteAudio)
+    } else if (selectedNumber === 3) {
+      app.playAudio(app.gNoteAudio)
+    }
+  },
+
   //--- GAME LOGIC ---
 
   gameStart() {
@@ -221,62 +245,26 @@ const app = {
     app.startButtonClicked();
   },
 
-  //Computer picks random box
-  //Chosen box will be played back to play
+  //TODO create timers to manage setTimeout timers
+//restart game
+//add audio to each button
 
-  //player will copy the compnuter's sequence
-  //check if player's choice matches the computers sequence
+//let the player know when it is their turn
 
-  //repeat until player clicks the wrong box in the sequence
+//let the player know when the computer playback has started
 
-  //restart game
-  //disable player clicks while computer choices are playing back
+//let the player know when the computer playback has ended
 
-  //add a new choice if player gets completes computer sequence
+//display the count of the computer list to the player
 
-  //add audio to each button
+//display remainder of player clicks left
+//add a restart button
 
-  //let the player know when it is their turn
+//add a notification when game is over
 
-  //let the player know when the computer playback has started
-
-  //let the player know when the computer playback has ended
-
-  //reset the game if the player chooses incorrectly
-
-  //display the count of the computer list to the player
-
-  //display remainder of player clicks left
-
-  //add a restart button
-
-  //add a notification when game is over
-
-  //start the game
+//start the game
   init: () => {
     app.gameStart();
   }
-};
-
+}
 app.init();
-
-const test = () => {
-  cNoteAudio = document.querySelector('.cNote')
-  console.log(cNoteAudio)
-  cNoteAudio.currentTime = 0;
-  cNoteAudio.play()
-  // app.greenBox.addEventListener('click', playAudio, cNoteAudio)
-  // eNoteRed = document.querySelector('.eNote')
-  // eNoteRed.addEventListener('click', playAudio, e)
-  // fNoteBlue = document.querySelector('.fNote')
-  // fNoteBlue.addEventListener('click', playAudio, f)
-  // eNoteRed = document.querySelector('.eNote')
-  // eNoteRed.addEventListener('click', playAudio, e)
-}
-
-const playAudio = (note) => {
-  //play note
-  note.currentTime = 0;
-  note.play()
-  //re/start at 0:00
-}
