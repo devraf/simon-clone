@@ -10,7 +10,7 @@ h1 {
   color: hsla(360, 100%, 98%, 1);
 }
 
-section {
+.game-board {
   display: grid;
   grid-template-columns: repeat(3, 100px);
   grid-template-rows: repeat(3, 100px);
@@ -20,7 +20,7 @@ section {
   padding: 20px;
 }
 
-section div {
+.game-board div {
   border-radius: 10px;
   border: solid 2px black;
 }
@@ -101,9 +101,9 @@ section div {
   text-align: center;
   border: none;
   color: hsla(360, 100%, 98%, 1);
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   background-color: hsla(275, 90%, 50%, 1);
-  padding: 15px;
+  padding: 5px;
   border-radius: 5px;
 }
 
@@ -111,4 +111,58 @@ section div {
   background-color: hsla(275, 90%, 55%, 1);
   transition: .3s;
   cursor: pointer;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  color: white;
+  border: none;
+  position: relative;
+  justify-content: center;
+  padding: 15px;
+  margin: 15px;
+}
+
+.start-button {
+position: relative;
+left: 50%;
+top: 50%;
+}
+
+.reset-button {
+  display: none;
+}
+
+.player-turn-notify {
+  text-align: center;
+  font-size: 1.5rem;
+  display: none;
+}
+
+.game-over {
+  display: none;
+  text-align: center;
+  font-size: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.count {
+  text-align: center;
+  background-color: black;
+  padding: 3px;
+  text-align: right;
+  width: 40px;
+  position: relative;
+  left: 30%;
+  border: inset 1px grey;
+  color: red;
+  font-family: 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+.is-active {
+  display: block;
 }
