@@ -35,6 +35,7 @@ const app = {
     app.countDisplay.innerText = 0
     app.count = 0
     app.playerList = []
+    app.computerList = []
     console.log(app.count, app.computerList, app.playerList)
     //Prevent player from clicking while computer logic is run
     app.disablePlayerClick()
@@ -266,13 +267,13 @@ const app = {
   },
   //Last fixes for mvp
   //TODO fix timer for player turn
-    //apply fix to GO! display text
-    //style game for MVP
-      //Reshape buttons
-      //style start button
-      //style title
-      //add color scheme
-      //shape game into circle
+  //apply fix to GO! display text
+  //style game for MVP
+  //Reshape buttons
+  //style start button
+  //style title
+  //add color scheme
+  //shape game into circle
 
   //start the game
   init: () => {
