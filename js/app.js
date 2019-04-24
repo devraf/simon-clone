@@ -136,8 +136,11 @@ const app = {
     app.blueBox.addEventListener('click', app.addNumberToPlayerList)
     app.yellowBox.addEventListener('click', app.addNumberToPlayerList)
     console.log('click event funtion started')
-    app.togglePlayerTurnText()
-    setTimeout(app.togglePlayerTurnText, 1500)
+    // setTimeout(function() {
+    //   app.togglePlayerTurnText()
+    // }, 1000)
+    // // app.togglePlayerTurnText()
+    // setTimeout(app.togglePlayerTurnText, 2500)
   },
   disablePlayerClick: () => {
     app.greenBox.removeEventListener('click', app.addNumberToPlayerList)
